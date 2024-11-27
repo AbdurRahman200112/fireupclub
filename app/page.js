@@ -22,7 +22,7 @@ const page = () => {
                   <img src="assets/img/bale.png" alt="img" />
                   25+ Years Of Experience
                 </span>
-                <h1 className="wow fadeInUp" data-wow-delay=".4s">
+                <h1 className="wow fadeInUp text-black" data-wow-delay=".4s">
                   Our Goal is To<br /> See You
                    <span> Succeed</span>
                 </h1>
