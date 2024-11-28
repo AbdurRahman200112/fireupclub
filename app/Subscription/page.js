@@ -439,6 +439,7 @@ const MultiStepForm = () => {
                               value={formData.age}
                               onChange={handleInputChange}
                               required
+                              min="1"
                             />
                             <div style={{ color: 'var(--bs-danger)', fontSize: '15px', height: "20px",  marginTop: "5px" }}>
                             {errors.age && (
