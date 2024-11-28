@@ -15601,7 +15601,7 @@ input.main-search-input::placeholder {
   align-items: center;
   gap: 20px;
 }
-@media (max-width: 1399px) {
+@media (max-width: 1198px) {
   .header-2 .header-right .icon-items {
     display: none;
   }
@@ -15626,7 +15626,7 @@ input.main-search-input::placeholder {
 .header-2 .header-right .icon-items .content h4 a {
   color: var(--black);
 }
-@media (max-width: 1199px) {
+@media (max-width: 512px) {
   .header-2 .header-right .header-button {
     display: none;
   }

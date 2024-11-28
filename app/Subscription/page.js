@@ -6,9 +6,10 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import countries from "world-countries";
+import PreSubscription from "@/components/PreSubscription";
 
 const MultiStepForm = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const totalSteps = 6; // Total number of steps
   const [formData, setFormData] = useState({
     name: "",
@@ -81,7 +82,7 @@ const MultiStepForm = () => {
   };
 
   const nextStep = () => {
-    if (validateStep()) {
+    if (step === 0 || validateStep()) {
       setStep((prevStep) => prevStep + 1);
     }
   };
@@ -117,6 +118,30 @@ const MultiStepForm = () => {
       </div>
       <div className="bg-cover w-100 h-100 section-padding">
         <div className="container">
+        {step === 0 ? (
+          <div className="row align-items-center">
+          {/* Left Column */}
+          <div className="col-md-6 text-start">
+            <h2 className="text-2xl font-bold mb-4">Welcome to the FireUpClub Subscription</h2>
+            <p className="text-gray-600 mb-4">
+              Begin your journey with us. Fill out the form and get registered with FireupClub.
+            </p>
+            <button
+              type="button"
+              className="theme-btn"
+              onClick={() => setStep(1)} // Move to the first form step
+            >
+              Get Started
+            </button>
+          </div>
+
+          {/* Right Column */}
+          <div className="col-md-6">
+            {/* Empty column for future image */}
+          </div>
+        </div>
+      ) : (
+        <>
           <div className="multiform-wrapper">
             <div className="row g-4 justify-content-center">
               <div className="col-lg-12">
@@ -448,6 +473,8 @@ const MultiStepForm = () => {
               </div>
             </div>
           </div>
+      </>
+      )}
         </div>
       </div>
     </section>

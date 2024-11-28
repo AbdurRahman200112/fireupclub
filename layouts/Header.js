@@ -36,7 +36,7 @@ const Menu = ({ single, menu }) => {
   return (
     <Fragment>
       {single ? (
-        <nav id="mobile-menu" className="d-none d-xl-block">
+        <nav id="mobile-menu" className="d-none d-xl-block d-lg-block">
           <ul>
             <li className="has-dropdown active menu-thumb">
               <Link href="/">
@@ -668,8 +668,8 @@ const Sidebar = ({ sidebarToggle, close, menu, single }) => {
                   </li>
                 </ul>
                 <div className="header-button mt-4">
-                  <Link href="contact" className="theme-btn text-center">
-                    Contact Us
+                  <Link href="/Subscription" className="theme-btn text-center">
+                    Subscribe
                   </Link>
                 </div>
                 <div className="social-icon d-flex align-items-center">
@@ -857,12 +857,12 @@ const Header3 = ({ single }) => {
                     </h4>
                   </div>
                 </div>
-                <div className="header-button">
-                  <Link href="contact" className="theme-btn">
+                <div className="header-button d-none d-lg-block d-xl-block">
+                  <Link href="/Subscription" className="theme-btn">
                     Get A Quote
                   </Link>
                 </div>
-                <div className="header__hamburger d-xl-none my-auto">
+                <div className="header__hamburger d-xl-none d-lg-none my-auto">
                   <div
                     className="sidebar__toggle"
                     onClick={() => setSidebarToggle(true)}

@@ -1,11 +1,10 @@
-
-import Link from "next/link";
-import Contact from "@/components/Contact";
+import Breadcrumb from "@/components/Breadcrumb";
 import NextLayout from "@/layouts/NextLayout";
+
 const page = () => {
   return (
     <NextLayout header={3} footer={3} single>
-      <Contact  />
+      <Breadcrumb pageName="Contact Us" />
       {/* Contact Section Section Start */}
       <section className="contact-section section-padding">
         <div className="container">
@@ -47,9 +46,61 @@ const page = () => {
                   className="contact-right wow fadeInUp"
                   data-wow-delay=".4s"
                 >
-                  <Link href="/Subscription">
-                    <button className="theme-btn">Get Started</button>
-                  </Link>
+                  <h3>Send Us Message</h3>
+                  <form
+                    action="#"
+                    id="contact-form"
+                    method="POST"
+                    className="contact-form-items"
+                  >
+                    <div className="row g-4">
+                      <div className="col-lg-6">
+                        <div className="form-clt">
+                          <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Full Name"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-clt">
+                          <input
+                            type="text"
+                            name="phone"
+                            id="phone"
+                            placeholder="Phone"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-clt">
+                          <input
+                            type="text"
+                            name="email"
+                            id="email2"
+                            placeholder="Your Email"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-12">
+                        <div className="form-clt">
+                          <textarea
+                            name="message"
+                            id="message"
+                            placeholder="Comments"
+                            defaultValue={""}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <button type="submit" className="theme-btn">
+                          Send a Message
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
