@@ -5,6 +5,7 @@ import Select from "react-select";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import countries from "world-countries";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
@@ -96,15 +97,11 @@ const MultiStepForm = () => {
     exit: { opacity: 0, y: -50 },
   };
 
-  // Options for dropdowns
-  const countryOptions = [
-    { value: "United States", label: "United States" },
-    { value: "Canada", label: "Canada" },
-    { value: "United Kingdom", label: "United Kingdom" },
-    { value: "India", label: "India" },
-    { value: "Australia", label: "Australia" },
-    { value: "Germany", label: "Germany" },
-  ];
+  // Generate country options dynamically using `world-countries` library
+  const countryOptions = countries.map((country) => ({
+    value: country.cca2, // Country code (e.g., "US", "IN")
+    label: country.name.common, // Country name
+  }));
 
   return (
     <section className="multiform-section">

@@ -1,4 +1,4 @@
-// File: C:\Users\Nash Tech PC 03\Desktop\Fireupclub\app\page.js
+// File: C:\Users\Mavens Advisor\Desktop\fireupclub\app\page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

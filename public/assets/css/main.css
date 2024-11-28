@@ -46,7 +46,7 @@ Version: 1.0.0
   overflow: hidden;
   text-align: center;
   line-height: 1;
-  /* z-index: 9; */
+  z-index: 9;
 }
 .theme-btn::before{
   content: "";
@@ -10060,6 +10060,9 @@ p.sticky-label {
 .multi-form-items .form-group .react-tel-input{
     margin-top: 15px;
 }
+.multi-form-items .form-group .error-text{
+    color: var(--bs-danger);
+}
 .multi-form-items .step .form-group i{
   margin-right: 15px;
   font-size: 18px;
@@ -10123,6 +10126,9 @@ p.sticky-label {
   height: 5px;
   background: var(--theme-2);
   border-radius: 2.5px;
+}
+.css-1nmdiq5-menu{
+  z-index: 10 !important;
 }
 .contact-wrapper .contact-content .contact-list {
   margin-top: 30px;
