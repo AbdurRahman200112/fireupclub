@@ -15,16 +15,6 @@ SwiperCore.use([Autoplay, Pagination, Navigation]);
 // Team data
 const teamMembers = [
   {
-    name: "Nabeel Shaikh – FCA",
-    role: "Wealth Advisor",
-    image: "assets/img/team/01.webp",
-    socialLinks: {
-      facebook: "#",
-      twitter: "#",
-      linkedin: "#",
-    },
-  },
-  {
     name: "Saqib Z Siddique",
     role: "Technical Analyst",
     image: "assets/img/team/02.webp",
@@ -99,54 +89,30 @@ const Team = () => {
             Meet Our Professional Team Members
           </h2>
         </div>
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={4}
-          loop = {true}
-          autoplay={{
-            delay: 3000,
-            
-            disableOnInteraction: false,
-          }}
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-            1200: {
-              slidesPerView: 4,
-            },
-          }}
-        >
-          {teamMembers.map((member, index) => (
-            <SwiperSlide key={index}>
+        <div className="row">
+            <div className="col-xl-3 col-lg-4 col-md-4">
               <div className="team-card-items">
                 <div className="team-image">
-                  <img src={member.image} alt={`${member.name}`} style={{ height: "335px", width: "100%", objectFit: "cover" }}/>
+                  <img src="assets/img/team/01.webp" alt="Nabeel Shaikh – FCA" style={{ height: "335px", width: "100%", objectFit: "cover" }}/>
                   <div className="icon-list">
                     <ul>
                       <li>
-                        <a href={member.socialLinks.facebook}>
+                        <a href="#">
                           <i className="fab fa-facebook-f" />
                         </a>
                       </li>
                       <li>
-                        <a href={member.socialLinks.twitter}>
+                        <a href="#">
                           <i className="fab fa-twitter" />
                         </a>
                       </li>
                       <li>
-                        <a href={member.socialLinks.linkedin}>
+                        <a href="#">
                           <i className="fab fa-linkedin-in" />
                         </a>
                       </li>
                       <li>
-                        <a href={member.socialLinks.pinterest}>
+                        <a href="#">
                           <i className="fab fa-pinterest-p" />
                         </a>
                       </li>
@@ -155,14 +121,79 @@ const Team = () => {
                 </div>
                 <div className="team-content">
                   <h4>
-                    <a href="team-details">{member.name}</a>
+                    <a href="team-details">Nabeel Shaikh – FCA</a>
                   </h4>
-                  <p>{member.role}</p>
+                  <p>Founder</p>
                 </div>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </div>
+            <div className="col-xl-9 col-lg-8 col-md-8">
+              <Swiper
+              spaceBetween={30}
+              slidesPerView={3}
+              loop = {true}
+              autoplay={{
+                delay: 3000,
+                
+                disableOnInteraction: false,
+              }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+
+              {teamMembers.map((member, index) => (
+                <SwiperSlide key={index}>
+                  <div className="team-card-items">
+                    <div className="team-image">
+                      <img src={member.image} alt={`${member.name}`} style={{ height: "335px", width: "100%", objectFit: "cover" }}/>
+                      <div className="icon-list">
+                        <ul>
+                          <li>
+                            <a href={member.socialLinks.facebook}>
+                              <i className="fab fa-facebook-f" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href={member.socialLinks.twitter}>
+                              <i className="fab fa-twitter" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href={member.socialLinks.linkedin}>
+                              <i className="fab fa-linkedin-in" />
+                            </a>
+                          </li>
+                          <li>
+                            <a href={member.socialLinks.pinterest}>
+                              <i className="fab fa-pinterest-p" />
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="team-content">
+                      <h4>
+                        <a href="team-details">{member.name}</a>
+                      </h4>
+                      <p>{member.role}</p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+              </Swiper>
+            </div>
+        </div>
+
+
       </div>
     </section>
   );

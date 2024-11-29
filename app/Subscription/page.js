@@ -128,10 +128,10 @@ const MultiStepForm = () => {
             </p>
             <button
               type="button"
-              className="theme-btn"
+              className="theme-btn bg-2"
               onClick={() => setStep(1)} // Move to the first form step
             >
-              Get Started
+              Get Started <i className="fa fa-long-arrow-right"></i>
             </button>
           </div>
 
@@ -413,7 +413,7 @@ const MultiStepForm = () => {
                             </div>
                           </div>
                         </motion.div>
-                      )}
+                     )}
 
                       {step === 6 && (
                         <motion.div
@@ -439,6 +439,7 @@ const MultiStepForm = () => {
                               value={formData.age}
                               onChange={handleInputChange}
                               required
+                              min="1"
                             />
                             <div style={{ color: 'var(--bs-danger)', fontSize: '15px', height: "20px",  marginTop: "5px" }}>
                             {errors.age && (

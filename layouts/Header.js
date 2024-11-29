@@ -858,8 +858,8 @@ const Header3 = ({ single }) => {
                   </div>
                 </div>
                 <div className="header-button d-none d-lg-block d-xl-block">
-                  <Link href="/Subscription" className="theme-btn">
-                    Get A Quote
+                  <Link href="/Subscription" className="theme-btn bg-2">
+                    Apply Now
                   </Link>
                 </div>
                 <div className="header__hamburger d-xl-none d-lg-none my-auto">

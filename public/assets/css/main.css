@@ -130,7 +130,7 @@ Version: 1.0.0
   background: var(--bg2);
 }
  .theme-btn.bg-2::after {
-  background: var(--theme-secondary);
+  background: var(--theme);
 }
 .theme-btn.bg-2:hover {
   color: var(--white);
