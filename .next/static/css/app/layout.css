@@ -14202,7 +14202,7 @@ Version: 1.0.0
   --theme-2: #028761;
   --theme-3: #2B2B6B;
   --theme-4: #ECE6FF;
-  --theme-secondary: #FDAD41;
+  --theme-secondary: #ffb04a;
   --header: linear-gradient(0deg, rgba(23,20,32,1) 49%, rgba(45,34,75,1) 93%);
   --base: #5C30FD;
   --text: #696969;
@@ -23140,19 +23140,19 @@ p.sticky-label {
   background-color: #0129299e;
 }
 .multi-form-items .form-group input{
-  padding: 12px 4px;
+  padding: 10px 4px;
   border: none;
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 200;
   color: #ffffff;
   border-bottom: 1px solid var(--text);
-  margin: 20px 0;
+  /* margin: 20px 0; */
 }
 .multi-form-items .form-group label{
-  color: #fff;
+  color: var(--theme);
   font-size: 20px;
   font-weight: 500;
 }
@@ -23160,7 +23160,9 @@ p.sticky-label {
     padding-left: 30px !important;
     border: unset !important;
     border-bottom: 1px solid var(--text) !important;
-    margin-left: 20px;
+    margin: 20px;
+    border-radius: 0;
+    
 }
 .multi-form-items .form-group .react-tel-input input:focus{
   box-shadow: none;
@@ -23189,17 +23191,26 @@ p.sticky-label {
   background-size: cover;
   border-radius: 20px;
 }
-.multi-form-items .select .form-group .css-13cymwt-control{
+ .css-13cymwt-control{
   background-color: transparent !important;
   border: 0 ;
-  border-bottom: 1px solid;
-  margin-top: 15px;
+  border-radius: 0 !important;
+  border-width: 0 !important;
+  border-bottom: 1px solid !important;
 }
-.multi-form-items .select .form-group .css-t3ipsp-control{
-  margin-top: 15px;
+ .css-t3ipsp-control{
+  margin-top: 10px;
 }
-.multi-form-items .select .form-group .css-13cymwt-control .css-1dimb5e-singleValue{
+ .css-13cymwt-control .css-1dimb5e-singleValue{
   color: #fff !important;
+  font-size: 18px;
+}
+.css-13cymwt-control .css-hlgwow {
+  padding: 10px 4px !important;
+}
+.css-13cymwt-control .css-hlgwow .css-19bb58m{
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .multi-next, .multi-prev{
     font-size: 18px;
@@ -23214,12 +23225,13 @@ p.sticky-label {
     line-height: 1;
 }
 .multi-next{
-  color: var(--white);
-  border: 1px solid var(--theme);
+  color: var(--bg2);
+  color: #fff;
   margin-left: auto;
+  background-color: var(--theme-secondary) !important;
+  font-weight: 600;
 }
 .multi-next:hover{
-  background-color: var(--theme);
   color: #fff;
 }
 .multi-prev{

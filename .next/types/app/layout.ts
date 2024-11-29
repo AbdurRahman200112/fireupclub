@@ -1,4 +1,4 @@
-// File: C:\Users\Nash Tech PC 03\Desktop\Fireupclub\app\layout.js
+// File: C:\Users\Mavens Advisor\Desktop\fireupclub\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
