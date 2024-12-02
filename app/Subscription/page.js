@@ -10,8 +10,40 @@ import countries from "world-countries";
 const MultiStepForm = () => {
   const [step, setStep] = useState(0);
   const totalSteps = 6;
+  const [showCustomInput, setShowCustomInput] = useState(false); 
+  const [customIndustry, setCustomIndustry] = useState(""); 
+  const [showOccupationField, setShowOccupationField] = useState(false);
 
-  const { handleSubmit, control, watch, trigger, formState: { errors } } = useForm({
+
+
+  const industries = [
+    { value: "retail", label: "Retail" },
+    { value: "technology", label: "Technology" },
+    { value: "healthcare", label: "Healthcare" },
+    { value: "finance", label: "Finance" },
+    { value: "food_beverages", label: "Food & Beverages" },
+    { value: "realestate", label: "Consulting Real Estate" },
+    { value: "advertisement", label: "Advertisement Agency" },
+    { value: "education", label: "Education" },
+    { value: "realestate", label: "Consulting Real Estate" },
+    { value: "manufacturing/wholesale", label: "Manufacturing / Wholesale" },
+    { value: "media/entertainment", label: "Media / Entertainent" },
+    { value: "transportation", label: "Transportation Logistics" },
+    { value: "event_management", label: "Event Management" },
+    { value: "travel_tourism", label: "Travel & Tourism" },
+    { value: "factory_production", label: "Factory Production Facility" },
+    { value: "home_decor", label: "Home Decor" },
+    { value: "rent_car", label: "Rent a Car" },
+    { value: "legal_service", label: "Legal Service" },
+    { value: "photography", label: "Photography" },
+    { value: "artisanal_handcraft", label: "Artisanal Handcraft" },
+    { value: "pets", label: "Pets" },
+    { value: "online_store", label: "Online Store" },
+    { value: "pr_agency", label: "PR agency" },
+    { value: "other", label: "Other" },
+  ];
+
+  const { handleSubmit, control, trigger, formState: { errors } } = useForm({
     defaultValues: {
       name: "",
       phone: "",
@@ -19,6 +51,11 @@ const MultiStepForm = () => {
       nationality: "",
       residence: "",
       age: "",
+      linkedin: "",
+      occupation: "",
+      industry: "",
+      experience: "",
+      income: "",
     },
   });
 
@@ -59,7 +96,7 @@ const MultiStepForm = () => {
       }
     }
   };
-  
+
 
   return (
     <section className="multiform-section">
@@ -117,22 +154,22 @@ const MultiStepForm = () => {
                       <div className="row justify-content-between">
                         <div className="col-12 col-xl-5 col-lg-5">
                           <div className="form-group mb-5">
-                          <label>Enter Full Name *</label>
-                          <Controller
-                            name="name"
-                            control={control}
-                            rules={{ required: "Name is required." }}
-                            render={({ field }) => (
-                              <input
-                                {...field}
-                                type="text"
-                                placeholder="Full Name"
-                              />
+                            <label>Enter Full Name *</label>
+                            <Controller
+                              name="name"
+                              control={control}
+                              rules={{ required: "Name is required." }}
+                              render={({ field }) => (
+                                <input
+                                  {...field}
+                                  type="text"
+                                  placeholder="Full Name"
+                                />
+                              )}
+                            />
+                            {errors.name && (
+                              <p className="error-text">{errors.name.message}</p>
                             )}
-                          />
-                          {errors.name && (
-                            <p className="error-text">{errors.name.message}</p>
-                          )}
                           </div>
                           <div className="form-group mb-5">
                             <label>Enter Email *</label>
@@ -219,24 +256,24 @@ const MultiStepForm = () => {
                         </div>
                         <div className="col-12 col-xl-5 col-lg-5">
                           <div className="form-group mb-5">
-                          <label>Select Nationality *</label>
-                          <Controller
-                            name="nationality"
-                            control={control}
-                            rules={{ required: "Nationality is required." }}
-                            render={({ field }) => (
-                              <Select
-                                {...field}
-                                options={countryOptions}
-                                placeholder="Select Country"
-                                value={countryOptions.find((option) => option.value === field.value)}
-                                onChange={(selectedOption) => field.onChange(selectedOption.value)}
-                              />
+                            <label>Select Nationality *</label>
+                            <Controller
+                              name="nationality"
+                              control={control}
+                              rules={{ required: "Nationality is required." }}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={countryOptions}
+                                  placeholder="Select Country"
+                                  value={countryOptions.find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => field.onChange(selectedOption.value)}
+                                />
+                              )}
+                            />
+                            {errors.nationality && (
+                              <p className="error-text">{errors.nationality.message}</p>
                             )}
-                          />
-                          {errors.nationality && (
-                            <p className="error-text">{errors.nationality.message}</p>
-                          )}
                           </div>
                           <div className="form-group mb-5">
                             <label>Country of Residence *</label>
@@ -265,7 +302,7 @@ const MultiStepForm = () => {
                               control={control}
                               rules={{
                                 required: "Age is required.",
-                                min: { value: 1, message: "Invalid age." },
+                                min: { value: 10, message: "Limited Digits." },
                               }}
                               render={({ field }) => (
                                 <input
@@ -281,11 +318,10 @@ const MultiStepForm = () => {
                             )}
                           </div>
 
-
                         </div>
                       </div>
 
-                      
+
                       <div className="button-group d-flex justify-content-between mt-4">
                         <button
                           type="button"
@@ -308,40 +344,140 @@ const MultiStepForm = () => {
                       exit="exit"
                       transition={{ duration: 0.6, ease: "easeInOut" }}
                     >
-                      <div className="form-group">
-                        <label>Enter Phone Number *</label>
-                        <Controller
-                          name="phone"
-                          control={control}
-                          rules={{
-                            required: "Phone number is required.",
-                            validate: (value) =>
-                              value && value.length >= 10
-                                ? true
-                                : "Invalid phone number.",
-                          }}
-                          render={({ field }) => (
-                            <PhoneInput
-                              {...field}
-                              country={"us"}
-                              inputStyle={{
-                                width: "100%",
-                                padding: "10px",
-                                border: errors.phone
-                                  ? "1px solid red"
-                                  : "1px solid #ccc",
-                              }}
-                              dropdownStyle={{
-                                maxHeight: "200px",
-                                overflow: "auto",
-                              }}
-                              onChange={field.onChange}
+                      <div className="row justify-content-between">
+                        <div className="col-12">
+                          <div className="form-group mb-5">
+                            <label>Occupation *</label>
+                            <Controller
+                              name="occupation"
+                              control={control}
+                              rules={{ required: "Occupation is required." }}
+                              render={({ field }) => (
+                                <input
+                                  {...field}
+                                  type="text"
+                                  placeholder="Occupation"
+                                />
+                              )}
                             />
-                          )}
-                        />
-                        {errors.phone && (
-                          <p className="error-text">{errors.phone.message}</p>
-                        )}
+                            {errors.occupatiuon && (
+                              <p className="error-text">{errors.occupation.message}</p>
+                            )}
+                          </div>
+                          <div className="form-group mb-5">
+                            <label>Select Industry *</label>
+                            <Controller
+                              name="industry"
+                              control={control}
+                              rules={{
+                                validate: (value) => {
+                                  if (!value) return "Industry is required.";
+                                  if (value === "other" && !customIndustry.trim()) {
+                                    return "Please provide a industry below.";
+                                  }
+                                  return true;
+                                },
+                              }}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={industries}
+                                  placeholder="Select Industry"
+                                  value={industries.find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => {
+                                    field.onChange(selectedOption.value);
+                                    setShowCustomInput(selectedOption.value === "other");
+                                  }}
+                                  noOptionsMessage={() => "No options available"}
+                                  filterOption={(candidate, input) => {
+                                    if (candidate.data.value === "other") return true; // Always show "Other"
+                                    if (!input) return true; // Show all options if no search input
+                                    return candidate.label.toLowerCase().includes(input.toLowerCase());
+                                  }}
+                                />
+                              )}
+                            />
+                            {errors.industry && (
+                              <p className="error-text">{errors.industry.message}</p>
+                            )}
+
+                            {/* Show custom input when "Other" is selected */}
+                            {showCustomInput && (
+                              <input
+                                type="text"
+                                className={`mt-3 ${!customIndustry.trim() && showCustomInput ? "input-error" : ""
+                                  }`}
+                                value={customIndustry}
+                                name="industry"
+                                onChange={(e) => setCustomIndustry(e.target.value)}
+                                placeholder="Enter your industry"
+                              />
+
+                            )}
+                          </div>
+                          <div className="form-group mb-5">
+                            <label>Years of Experience *</label>
+                            <Controller
+                              name="experience"
+                              control={control}
+                              rules={{ required: "Years of experience is required." }}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={[
+                                    { value: "0-2", label: "0-2" },
+                                    { value: "2-5", label: "2-5" },
+                                    { value: "5-10", label: "5-10" },
+                                    { value: "10+", label: "10+" },
+                                  ]}
+                                  placeholder="Select Years of Experience"
+                                  value={[
+                                    { value: "0-2", label: "0-2" },
+                                    { value: "2-5", label: "2-5" },
+                                    { value: "5-10", label: "5-10" },
+                                    { value: "10+", label: "10+" },
+                                  ].find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => field.onChange(selectedOption.value)}
+                                />
+                              )}
+                            />
+                            {errors.experience && (
+                              <p className="error-text">{errors.experience.message}</p>
+                            )}
+                          </div>
+                          <div className="form-group mb-5">
+                            <label>Annual Income *</label>
+                            <Controller
+                              name="income"
+                              control={control}
+                              rules={{ required: "Annual Income is required." }}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={[
+                                    { value: "20,000", label: "Less than $20,000" },
+                                    { value: "20,000-49,000", label: "$20,000 - $49,000" },
+                                    { value: "200,000-300,000", label: "$200,000-$300,000" },
+                                    { value: "300,000+", label: "Greater than $300,000" },
+                                  ]}
+                                  placeholder="Select Years of Experience"
+                                  value={[
+                                    { value: "20,000", label: "Less than $20,000" },
+                                    { value: "20,000-49,000", label: "$20,000 - $49,000" },
+                                    { value: "200,000-300,000", label: "$200,000-$300,000" },
+                                    { value: "300,000+", label: "Greater than $300,000" },
+                                  ].find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => field.onChange(selectedOption.value)}
+                                />
+                              )}
+                            />
+                            {errors.experience && (
+                              <p className="error-text">{errors.income.message}</p>
+                            )}
+                          </div>
+
+
+                        </div>
                       </div>
                       <div className="button-group d-flex justify-content-between mt-4">
                         <button
@@ -372,28 +508,112 @@ const MultiStepForm = () => {
                       exit="exit"
                       transition={{ duration: 0.6, ease: "easeInOut" }}
                     >
-                      <div className="form-group">
-                        <label>Enter Email *</label>
-                        <Controller
-                          name="email"
-                          control={control}
-                          rules={{
-                            required: "Email is required.",
-                            pattern: {
-                              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                              message: "Invalid email format.",
-                            },
-                          }}
-                          render={({ field }) => (
-                            <input
-                              {...field}
-                              type="email"
-                              placeholder="Email"
-                              className={errors.email ? "input-error" : ""}
+                      <div className="row justify-content-between">
+                        <div className="col-12">
+                          <div className="form-group mb-5">
+                            <label>What are your financial goals?</label>
+                            <Controller
+                              name="financial_goals"
+                              control={control}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={[
+                                    { value: "short_term", label: "Short-term goals (less than 5 years)" },
+                                    { value: "medium_term", label: "Medium-term goals (3-7 years):" },
+                                    { value: "long_term", label: "Long-term goals (5 to 10+ years)" },
+                                    { value: "aditional_goals", label: "Additional goals:" },
+                                  ]}
+                                  placeholder="Select"
+                                  value={[
+                                    { value: "short_term", label: "Short-term goals (less than 5 years)" },
+                                    { value: "medium_term", label: "Medium-term goals (3-7 years):" },
+                                    { value: "long_term", label: "Long-term goals (5 to 10+ years)" },
+                                    { value: "aditional_goals", label: "Additional goals:" },
+                                  ].find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => {
+                                    field.onChange(selectedOption.value);
+                                    setShowOccupationField(!!selectedOption.value); // Show the input field if an option is selected
+                                  }}
+                                />
+                              )}
                             />
+                          </div>
+                          
+                          {showOccupationField && (
+                                  
+                            <div className="form-group mb-5 ">
+                              <label>Specify your Financial Goals *</label>
+                              <Controller
+                                name="specify_financial_goals"
+                                control={control}
+                                rules={{
+                                  validate: (value) =>
+                                    value && value.length > 0
+                                      ? true
+                                      : "Please select at least one financial goal.",
+                                }}
+                                render={({ field }) => (
+                                  <Select
+                                    {...field}
+                                    isMulti // Enable multiple selection
+                                    options={[
+                                      { value: "worth_milestone", label: "Achieve a net worth milestone (e.g., $500,000, $1,000,000)" },
+                                      { value: "frugality", label: "Reduce expenses and increase frugality" },
+                                      { value: "lifestyle", label: "Develop a sustainable lifestyle that aligns with FI values" },
+                                      { value: "volunteering", label: "Give back through philanthropy or volunteering" },
+                                      { value: "other", label: "Other" },
+                                    ]}
+                                    placeholder="Select"
+                                    value={field.value}
+                                    onChange={(selectedOptions) => {
+                                      field.onChange(selectedOptions); // Update selected options in state
+                                    }}
+                                  />
+                                )}
+                              />
+                              {errors.specify_financial_goals && (
+                                <p className="error-text">
+                                  {errors.specify_financial_goals.message}
+                                </p>
+                              )}
+                            </div>
                           )}
-                        />
-                        {errors.email && <p className="error-text">{errors.email.message}</p>}
+
+
+                          <div className="form-group mb-5">
+                            <label>What is your current Net Worth? *</label>
+                            <Controller
+                              name="net_worth"
+                              control={control}
+                              rules={{ required: "Net Worth is required." }}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={[
+                                    { value: "50,000", label: "Less than $50,000" },
+                                    { value: "50,000-99,000", label: "$50,000 - $99,000" },
+                                    { value: "100,000-199,999", label: "$100,000-$199,999" },
+                                    { value: "200,000-300,000", label: "$200,000-$300,000" },
+                                    { value: "300,000+", label: "Greater than $300,000" },
+                                  ]}
+                                  placeholder="Select Years of Experience"
+                                  value={[
+                                    { value: "50,000", label: "Less than $50,000" },
+                                    { value: "50,000-99,000", label: "$50,000 - $99,000" },
+                                    { value: "100,000-199,999", label: "$100,000-$199,999" },
+                                    { value: "200,000-300,000", label: "$200,000-$300,000" },
+                                    { value: "300,000+", label: "Greater than $300,000" },
+                                  ].find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => field.onChange(selectedOption.value)}
+                                />
+                              )}
+                            />
+                            {errors.net_worth && (
+                              <p className="error-text">{errors.net_worth.message}</p>
+                            )}
+                          </div>
+                        </div>
                       </div>
                       <div className="button-group d-flex justify-content-between mt-4">
                         <button
@@ -405,7 +625,7 @@ const MultiStepForm = () => {
                         </button>
                         <button
                           type="button"
-                          className="multi-next theme-btn d-flex gap-2"
+                          className="multi-next theme-btn bg-2 d-flex gap-2"
                           onClick={nextStep}
                         >
                           Next <i className="fal fa-long-arrow-right"></i>
