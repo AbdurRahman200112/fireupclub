@@ -23231,6 +23231,12 @@ p.sticky-label {
   background-color: var(--theme-secondary) !important;
   font-weight: 600;
 }
+.multi-submit{
+  background-color: var(--theme-2) !important;
+}
+.theme-btn.multi-submit::after{
+  background-color: var(--theme-secondary) !important;
+}
 .multi-next:hover{
   color: #fff;
 }

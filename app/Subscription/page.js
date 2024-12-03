@@ -9,7 +9,7 @@ import countries from "world-countries";
 
 const MultiStepForm = () => {
   const [step, setStep] = useState(0);
-  const totalSteps = 6;
+  const totalSteps = 4;
   const [showCustomInput, setShowCustomInput] = useState(false); 
   const [customIndustry, setCustomIndustry] = useState(""); 
   const [showOccupationField, setShowOccupationField] = useState(false);
@@ -82,6 +82,11 @@ const MultiStepForm = () => {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -50 },
+  };
+  const upToDownAnimation = {
+    hidden: { opacity: 0, y: -50 }, // Start above (negative y)
+    visible: { opacity: 1, y: 0 }, // Move to normal position
+    exit: { opacity: 0, y: -50 }, // Optional: Exit back up
   };
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
@@ -542,7 +547,14 @@ const MultiStepForm = () => {
                           
                           {showOccupationField && (
                                   
-                            <div className="form-group mb-5 ">
+                            <motion.div
+                              className="form-group mb-5"
+                              key="occupation-field"
+                              variants={upToDownAnimation} 
+                              initial="hidden"
+                              animate="visible"
+                              transition={{ duration: 0.6, ease: "easeInOut" }} // Add optional transition overrides if needed
+                            >
                               <label>Specify your Financial Goals *</label>
                               <Controller
                                 name="specify_financial_goals"
@@ -577,7 +589,7 @@ const MultiStepForm = () => {
                                   {errors.specify_financial_goals.message}
                                 </p>
                               )}
-                            </div>
+                            </motion.div>
                           )}
 
 
@@ -644,126 +656,81 @@ const MultiStepForm = () => {
                       exit="exit"
                       transition={{ duration: 0.6, ease: "easeInOut" }}
                     >
-                      <div className="form-group">
-                        <label>Select Nationality *</label>
+                      <div className="form-group mb-5 ">
+                        <label>What skills do you wish to gain from fire up club? *</label>
                         <Controller
-                          name="nationality"
-                          control={control}
-                          rules={{ required: "Nationality is required." }}
-                          render={({ field }) => (
-                            <Select
-                              {...field}
-                              options={countryOptions}
-                              placeholder="Select Country"
-                              value={countryOptions.find((option) => option.value === field.value)}
-                              onChange={(selectedOption) => field.onChange(selectedOption.value)}
-                            />
-                          )}
-                        />
-                        {errors.nationality && (
-                          <p className="error-text">{errors.nationality.message}</p>
-                        )}
-                      </div>
-                      <div className="button-group d-flex justify-content-between mt-4">
-                        <button
-                          type="button"
-                          className="multi-prev d-flex gap-2"
-                          onClick={prevStep}
-                        >
-                          <i className="fal fa-long-arrow-left"></i> Back
-                        </button>
-                        <button
-                          type="button"
-                          className="multi-next theme-btn d-flex gap-2"
-                          onClick={nextStep}
-                        >
-                          Next <i className="fal fa-long-arrow-right"></i>
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {step === 5 && (
-                    <motion.div
-                      className="step step-5 select"
-                      key="step-5"
-                      variants={stepAnimation}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                    >
-                      <div className="form-group">
-                        <label>Country of Residence *</label>
-                        <Controller
-                          name="residence"
-                          control={control}
-                          rules={{ required: "Country of Residence is required." }}
-                          render={({ field }) => (
-                            <Select
-                              {...field}
-                              options={countryOptions}
-                              placeholder="Select Country"
-                              value={countryOptions.find((option) => option.value === field.value)}
-                              onChange={(selectedOption) => field.onChange(selectedOption.value)}
-                            />
-                          )}
-                        />
-                        {errors.residence && (
-                          <p className="error-text">{errors.residence.message}</p>
-                        )}
-                      </div>
-                      <div className="button-group d-flex justify-content-between mt-4">
-                        <button
-                          type="button"
-                          className="multi-prev d-flex gap-2"
-                          onClick={prevStep}
-                        >
-                          <i className="fal fa-long-arrow-left"></i> Back
-                        </button>
-                        <button
-                          type="button"
-                          className="multi-next theme-btn d-flex gap-2"
-                          onClick={nextStep}
-                        >
-                          Next <i className="fal fa-long-arrow-right"></i>
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-
-
-                  {step === 6 && (
-                    <motion.div
-                      className="step step-6"
-                      key="step-6"
-                      variants={stepAnimation}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                    >
-                      <div className="form-group">
-                        <label>Enter Your Age *</label>
-                        <Controller
-                          name="age"
+                          name="skills"
                           control={control}
                           rules={{
-                            required: "Age is required.",
-                            min: { value: 1, message: "Invalid age." },
+                            validate: (value) =>
+                              value && value.length > 0
+                                ? true
+                                : "Please select at least one skill.",
                           }}
                           render={({ field }) => (
-                            <input
+                            <Select
                               {...field}
-                              type="number"
-                              placeholder="Age"
-                              min="1"
+                              isMulti // Enable multiple selection
+                              options={[
+                                { value: "ecommerce", label: "E-Commerce:" },
+                                { value: "digital_books", label: "Digital Books Creationy" },
+                                { value: "crypto_tading", label: "Crypto Trading" },
+                                { value: "financial_planning", label: "Financial Planning" },
+                                { value: "real_estate_investment", label: "Real Estate Investment" },
+                                { value: "personal_branding", label: "Personal Branding" },
+                                { value: "affilate_marketing", label: "Affiliate Marketing" },
+                                { value: "digital_marketing", label: "Digital Marketing" },
+                                { value: "portfolio_management", label: "Portfolio Management" },
+                                { value: "risk_management", label: "Risk Management Techniques" },
+                                { value: "global_investment", label: "Global Investment" },
+                                { value: "startup", label: "Startup" },
+                              ]}
+                              placeholder="Select"
+                              value={field.value}
+                              onChange={(selectedOptions) => {
+                                field.onChange(selectedOptions); 
+                              }}
                             />
                           )}
                         />
-                        {errors.age && (
-                          <p className="error-text">{errors.age.message}</p>
+                        {errors.skills && (
+                          <p className="error-text">
+                            {errors.skills.message}
+                          </p>
                         )}
+                      </div>
+                      <div className="form-group mb-5">
+                            <label>How Early do you want to retire? *</label>
+                            <Controller
+                              name="retire_years"
+                              control={control}
+                              render={({ field }) => (
+                                <Select
+                                  {...field}
+                                  options={[
+                                    { value: "5", label: "5" },
+                                    { value: "7", label: "7" },
+                                    { value: "12", label: "12" },
+                                    { value: "15", label: "15" },
+                                  ]}
+                                  placeholder="Select"
+                                  value={[
+                                    { value: "5", label: "5" },
+                                    { value: "7", label: "7" },
+                                    { value: "12", label: "12" },
+                                    { value: "15", label: "15" },
+                                  ].find((option) => option.value === field.value)}
+                                  onChange={(selectedOption) => {
+                                    field.onChange(selectedOption.value);
+                                    setShowOccupationField(!!selectedOption.value); // Show the input field if an option is selected
+                                  }}
+                                />
+                                
+                              )}
+                            />
+                            {errors.retire_years && (
+                              <p className="error-text">{errors.retire_years.message}</p>
+                            )}
                       </div>
                       <div className="button-group d-flex justify-content-between mt-4">
                         <button
@@ -773,12 +740,13 @@ const MultiStepForm = () => {
                         >
                           <i className="fal fa-long-arrow-left"></i> Back
                         </button>
-                        <button type="submit" className="theme-btn multi-next d-flex gap-2">
+                        <button type="submit" className="theme-btn multi-submit d-flex gap-2">
                           Submit
                         </button>
                       </div>
                     </motion.div>
                   )}
+
                 </AnimatePresence>
               </form>
             </div>
